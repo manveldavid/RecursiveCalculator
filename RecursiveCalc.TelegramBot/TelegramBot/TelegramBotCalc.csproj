@@ -15,7 +15,12 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="RecursiveCalcEngine">
-      <HintPath>..\..\RecursiveCalc.Engine\bin\Debug\net8.0\RecursiveCalcEngine.dll</HintPath>
+      <HintPath>RecursiveCalcEngine.dll</HintPath>
     </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="RecursiveCalcEngine.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 </Project>
