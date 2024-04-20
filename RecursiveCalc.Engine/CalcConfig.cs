@@ -12,9 +12,9 @@
 			new string[] { "=" },
 			new string[] { "-" },
 			new string[] { "+", },
-			new string[] {"*", "∙", "×"},
-			new string[] { "/", "÷", ":", "⁄" },
-			new string[] { "^" },
+			new string[] {"*", "∙", "×", "x", "х" },
+			new string[] { "/", "÷", ":", "⁄", "\\" },
+			new string[] { "^", "&" },
 		};
 
 		public string[] CharOperator { get; set; } =
