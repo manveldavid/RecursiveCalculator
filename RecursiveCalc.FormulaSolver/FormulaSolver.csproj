@@ -9,7 +9,7 @@
 
   <ItemGroup>
     <Reference Include="RecursiveCalcEngine">
-      <HintPath>..\RecursiveCalcEngine\bin\Debug\net7.0\RecursiveCalcEngine.dll</HintPath>
+      <HintPath>..\RecursiveCalc.Engine\bin\Debug\net7.0\RecursiveCalcEngine.dll</HintPath>
     </Reference>
   </ItemGroup>
 

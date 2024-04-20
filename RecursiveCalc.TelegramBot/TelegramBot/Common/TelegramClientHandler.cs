@@ -1,9 +1,8 @@
-﻿using System;
-using Telegram.Bot.Types.Enums;
+﻿using Telegram.Bot.Types.Enums;
 using Telegram.Bot.Types;
 using Telegram.Bot;
 using Telegram.Bot.Polling;
-using Telegram.Bot.Types.ReplyMarkups;
+using RecursiveCalcEngine;
 
 namespace TelegramBot.Common
 {
@@ -46,7 +45,7 @@ namespace TelegramBot.Common
             var i = 0;
             try
             {
-                var result = Calc.Solve(message.Text.Replace(",", "."));
+                var result = Calc.Solve(Calc.Clean(message.Text));
                 var response = $"result: `{Math.Round(result.Result,4)}`\n\nhistory:\n{string.Join("\n", 
                     result.History.Select(l => $"\t{++i}. {
                         l.Substring(0,l.IndexOf(new CalcConfig().EqualsDigits.First())+1)+"`"+

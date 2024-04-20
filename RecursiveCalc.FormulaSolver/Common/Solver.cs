@@ -49,7 +49,7 @@ namespace FormulaSolver.Common
 								}
 							}
 							var history = new List<string>();
-							result = Calc.Solve(resultPart, history);
+							result = Calc.Solve(resultPart, history).Result;
 
 							var historyBlock = string.Empty;
 							historyBlock += "\n{\n";
