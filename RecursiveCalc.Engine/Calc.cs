@@ -1,8 +1,10 @@
-﻿namespace RecursiveCalcEngine
+﻿using System.Globalization;
+
+namespace RecursiveCalcEngine
 {
 	public class Calc
 	{
-		public static string Clean(string prompt, CalcConfig config = null)
+		public static string Clean(string prompt, CalcConfig? config = null)
 		{
 			if (config == null) config = new CalcConfig();
 			prompt = prompt.ToLower();
@@ -15,41 +17,46 @@
 			foreach (var group in config.Digits)
 			{
 				var currentDigit = group.First();
+
 				foreach (var digit in group.Skip(1))
-				{
-					if (digit != null)
-					{
-						if (prompt.Contains(digit))
-						{
-							prompt = prompt.Replace(digit, currentDigit);
-						}
-					}
-				}
+					if (digit != null && prompt.Contains(digit))
+						prompt = prompt.Replace(digit, currentDigit);
 			}
 
 			return prompt;
 		}
 
-		public static CalcResult Solve(string prompt, List<string> history = null, int occurence = -1)
+		public static CalcResult Solve(string prompt, List<string>? history = null, int occurence = -1)
 		{
 			var config = new CalcConfig();
 			config.Occurrence = occurence;
+
 			if (history == null)
-			{
 				history = new List<string>();
-			}
+
 			var result = Solve(prompt, history, config);
-			return new CalcResult { Result = result, History = history };
+
+			return new CalcResult { 
+				Result = 
+					config.Occurrence != -1 ? 
+					Math.Round(result, config.Occurrence) : 
+					result, 
+				History = history 
+			};
 		}
 
 		public static double Solve(string prompt, List<string> history, CalcConfig config)
 		{
-			if(config == null) config = new CalcConfig();
-			if (history == null) history = new List<string>();
-			double result;
+			if(config == null) 
+				config = new CalcConfig();
+
+			if (history == null) 
+				history = new List<string>();
+
+			double result = 0;
 			double resultRound;	
-			if (!(prompt.Length > 0)) { result = 0; }
-			else if (!double.TryParse(prompt, out result))
+
+			if (!double.TryParse(prompt, CultureInfo.InvariantCulture, out result) && (prompt.Length > 0))
 			{
 				var bra = config.Bra.First();
 				var ket = config.Ket.First();
@@ -175,8 +182,7 @@
 				#endregion
 			}
 			
-			resultRound = config.Occurrence != -1? Math.Round(result, config.Occurrence) : result;
-			return resultRound;
+			return result;
 		}
 	}
 }
