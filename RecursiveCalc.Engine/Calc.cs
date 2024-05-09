@@ -6,7 +6,7 @@ namespace RecursiveCalcEngine
 	{
 		public static string Clean(string prompt, CalcConfig? config = null)
 		{
-			if (config == null) config = new CalcConfig();
+            if (config == null) config = new CalcConfig();
 			prompt = prompt.ToLower();
 
 			prompt = prompt.Replace(" ", "");
@@ -27,8 +27,8 @@ namespace RecursiveCalcEngine
 		}
 
 		public static CalcResult Solve(string prompt, List<string>? history = null, int occurence = -1)
-		{
-			var config = new CalcConfig();
+        {
+            var config = new CalcConfig();
 			config.Occurrence = occurence;
 
 			if (history == null)
@@ -46,8 +46,8 @@ namespace RecursiveCalcEngine
 		}
 
 		public static double Solve(string prompt, List<string> history, CalcConfig config)
-		{
-			if(config == null) 
+        {
+            if (config == null) 
 				config = new CalcConfig();
 
 			if (history == null) 

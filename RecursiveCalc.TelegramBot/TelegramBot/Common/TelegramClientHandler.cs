@@ -8,7 +8,7 @@ namespace TelegramBot.Common
 {
     public class TelegramClientHandler
     {
-        public static TelegramBotClient TelegramClient { get; set; }
+        public static TelegramBotClient TelegramClient { get; set; } = default!;
 
         public static void Start()
         {

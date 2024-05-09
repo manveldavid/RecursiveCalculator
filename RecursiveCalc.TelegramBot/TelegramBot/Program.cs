@@ -1,4 +1,5 @@
-﻿using Telegram.Bot;
+﻿using System.Globalization;
+using Telegram.Bot;
 using TelegramBot.Common;
 
 namespace TelegramBot
@@ -7,6 +8,8 @@ namespace TelegramBot
     {
         static void Main(string[] args)
         {
+            Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
+
             TelegramClientHandler.TelegramClient = 
                 new TelegramBotClient("6497613927:AAEaPFQKRJ_PhGyBpzzz3HQdeGfKcQ8U5OQ");
             TelegramClientHandler.Start();
