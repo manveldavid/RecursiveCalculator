@@ -3,7 +3,7 @@
 Try it: https://t.me/RecursiveCalcBot
 
 It helps you solve mathematical expressions.
-Like this: `1368-(0,0267+0,38/0,14+0,05/0,3+0,12/0,15+0,02/0,09)/2,94*(1368-280)` or `1+cos(pi()/3)^2/sin(2/pi())^2`
+Like this: `8.173*sqrt(((sin(36*pi()/180)/sin(32*pi()/180))^2)+((sin(36*pi()/180)/sin(31*pi()/180))^2)-(2*cos((96-76)*pi()/180)*(()sin(36*pi()/180)*sin(36*pi()/180))/(sin(32*pi()/180)*sin(31*pi()/180))))`
 
 Operator list:
 - `!()` - factorial
