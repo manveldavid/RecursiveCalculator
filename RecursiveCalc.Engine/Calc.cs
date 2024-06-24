@@ -13,8 +13,10 @@ namespace RecursiveCalcEngine
 			prompt = prompt.Replace("\n", "");
 			prompt = prompt.Replace("\r", "");
 			prompt = prompt.Replace("\t", "");
+			prompt = prompt.Replace("\"", "");
+            prompt = prompt.Replace("'", "");
 
-			foreach (var group in config.Digits)
+            foreach (var group in config.Digits)
 			{
 				var currentDigit = group.First();
 

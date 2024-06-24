@@ -10,9 +10,9 @@
 			new string[]{ ";" },
 			new string[] { ".", "," },
 			new string[] { "=" },
-			new string[] { "-" },
+			new string[] { "-", "–" },
 			new string[] { "+", },
-			new string[] {"*", "∙", "×", "x", "х" },
+			new string[] {"*", "∙", "·", "×", "x", "х" },
 			new string[] { "/", "÷", ":", "⁄", "\\" },
 			new string[] { "^", "&" },
 		};
