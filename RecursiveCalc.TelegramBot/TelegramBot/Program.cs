@@ -10,10 +10,15 @@ namespace TelegramBot
         {
             Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
 
-            var apiKey = Environment.GetEnvironmentVariable("API_KEY");
+            var apiKey = string.Empty;
+
+            if (string.IsNullOrEmpty(args.FirstOrDefault()))
+                apiKey = Environment.GetEnvironmentVariable("API_KEY")!;
+            else
+                apiKey = args.First();
 
             TelegramClientHandler.TelegramClient = 
-                new TelegramBotClient(apiKey ?? throw new Exception(nameof(apiKey)));
+                new TelegramBotClient(apiKey);
             TelegramClientHandler.Start();
 
             Console.WriteLine("Recursive calc run!");
