@@ -1,28 +1,38 @@
 ﻿using System.Globalization;
+using RecursiveCalcEngine;
 using Telegram.Bot;
-using TelegramBot.Common;
+using Telegram.Bot.Types.Enums;
 
-namespace TelegramBot
+namespace TelegramBot;
+
+public class Program
 {
-    internal class Program
+    public static async Task Main(string[] args)
     {
-        static void Main(string[] args)
+        var offset = 0;
+        var apiKey = Environment.GetEnvironmentVariable("API_KEY")!;
+        var telegramBot = new TelegramBotClient(apiKey);
+        Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
+        Console.WriteLine("bot run!");
+
+        while (true)
         {
-            Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
+            var updates = await telegramBot.GetUpdatesAsync(offset);
+            await Task.Delay(TimeSpan.FromSeconds(5));
 
-            var apiKey = string.Empty;
+            foreach (var update in updates)
+            {
+                if (update is null || update.Message is null || string.IsNullOrWhiteSpace(update.Message.Text))
+                    continue;
 
-            if (string.IsNullOrEmpty(args.FirstOrDefault()))
-                apiKey = Environment.GetEnvironmentVariable("API_KEY")!;
-            else
-                apiKey = args.First();
+                var result = Calc.Solve(Calc.Clean(update.Message.Text));
+                var response = $"result: `{Math.Round(result.Result, 4)}`\n\nhistory:\n{string.Join("\n",
+                    result.History.Select((l, i) => $"\t{++i}. {l.Substring(0, l.IndexOf(new CalcConfig().EqualsDigits.First()) + 1) + "`" +
+                        l.Substring(l.IndexOf(new CalcConfig().EqualsDigits.First()) + 1) + "`"}"))}".Replace("*", "\\*").Replace("+-", "-");
+                await telegramBot.SendTextMessageAsync(update.Message.Chat, response, parseMode: ParseMode.Markdown);
 
-            TelegramClientHandler.TelegramClient = 
-                new TelegramBotClient(apiKey);
-            TelegramClientHandler.Start();
-
-            Console.WriteLine("Recursive calc run!");
-            while (true) ;
+                offset = update.Id + 1;
+            }
         }
     }
 }
