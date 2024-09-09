@@ -25,10 +25,19 @@ public class Program
                 if (update is null || update.Message is null || string.IsNullOrWhiteSpace(update.Message.Text))
                     continue;
 
-                var result = Calc.Solve(Calc.Clean(update.Message.Text));
-                var response = $"result: `{Math.Round(result.Result, 4)}`\n\nhistory:\n{string.Join("\n",
-                    result.History.Select((l, i) => $"\t{++i}. {l.Substring(0, l.IndexOf(new CalcConfig().EqualsDigits.First()) + 1) + "`" +
-                        l.Substring(l.IndexOf(new CalcConfig().EqualsDigits.First()) + 1) + "`"}"))}".Replace("*", "\\*").Replace("+-", "-");
+                var response = string.Empty;
+                try
+                {
+                    var result = Calc.Solve(Calc.Clean(update.Message.Text));
+                    response = $"result: `{Math.Round(result.Result, 4)}`\n\nhistory:\n{string.Join("\n",
+                        result.History.Select((l, i) => $"\t{++i}. {l.Substring(0, l.IndexOf(new CalcConfig().EqualsDigits.First()) + 1) + "`" +
+                            l.Substring(l.IndexOf(new CalcConfig().EqualsDigits.First()) + 1) + "`"}"))}".Replace("*", "\\*").Replace("+-", "-");
+                }
+                catch (Exception ex)
+                {
+                    response = ex.ToString();
+                }
+
                 await telegramBot.SendTextMessageAsync(update.Message.Chat, response, parseMode: ParseMode.Markdown);
 
                 offset = update.Id + 1;
